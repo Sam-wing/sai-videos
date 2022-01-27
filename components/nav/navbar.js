@@ -11,11 +11,6 @@ const NavBar = (props) => {
 
   const router = useRouter();
 
-  const handleOnClickLogo = (e) => {
-    e.preventDefault();
-    router.push("/");
-  };
-
   const handleOnClickHome = (e) => {
     e.preventDefault();
     router.push("/");
@@ -34,16 +29,18 @@ const NavBar = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <a className={styles.logoLink} href="/" onClick={handleOnClickLogo}>
-          <div className={styles.logoWrapper}>
-            <Image
-              src={"/static/netflix.svg"}
-              alt="Netfiex logo"
-              width="128px"
-              height="34px"
-            />
-          </div>
-        </a>
+        <Link href="/">
+            <a className={styles.logoLink}>
+            <div className={styles.logoWrapper}>
+                <Image
+                src={"/static/netflix.svg"}
+                alt="Netfiex logo"
+                width="128px"
+                height="34px"
+                />
+            </div>
+            </a>
+        </Link>
 
         <ul className={styles.navItems}>
           <li className={styles.navItem} onClick={handleOnClickHome}>
