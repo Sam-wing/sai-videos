@@ -34,7 +34,7 @@ const NavBar = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <a className={styles.logoLink} onClick={handleOnClickLogo}>
+        <a className={styles.logoLink} href="/" onClick={handleOnClickLogo}>
           <div className={styles.logoWrapper}>
             <Image
               src={"/static/netflix.svg"}
