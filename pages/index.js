@@ -7,17 +7,17 @@ import { getVideos } from "../lib/videos";
 
 export async function getServerSideProps() {
   const disneyVideos = await getVideos("disney trailer");
-  const travelVideos = await getVideos("travel");
-  const productivityVideos = await getVideos("Productivity");
+  // const travelVideos = await getVideos("travel");
+  // const productivityVideos = await getVideos("Productivity");
   // const popularVideos = await getVideos("disney trailer");
 
-  return { props: { disneyVideos, travelVideos, productivityVideos } };
+  return { props: { disneyVideos } };
 }
 
 export default function Home({
   disneyVideos,
-  travelVideos,
-  productivityVideos,
+  // travelVideos,
+  // productivityVideos,
 }) {
   return (
     <div className={styles.container}>
