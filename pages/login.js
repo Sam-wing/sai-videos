@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { magic } from "../lib/magic-client";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [userMsg, setUserMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const handleOnChangeEmail = (e) => {
     setUserMsg("");
@@ -16,17 +18,33 @@ const Login = () => {
     setEmail(email);
   };
 
-  const handleLoginWithEmail = (e) => {
+  const handleLoginWithEmail = async (e) => {
     console.log("hi button");
     e.preventDefault();
+    setIsLoading(true);
     if (email) {
-        if (email === "saiwang1998@163.com") {
-            router.push("/")
-        } else {
-            setUserMsg("Something wrong");
+      if (email === "saiwang1998@163.com") {
+        try {
+          setIsLoading(true);
+          const didToken = await magic.auth.loginWithMagicLink({
+            email,
+          });
+          if (didToken) {
+            setIsLoading(false);
+            router.push("/");
+          }
+        } catch {
+          // Handle errors if required!
+          console.error("something went wrong logging in", error);
+          setIsLoading(false);
         }
+      } else {
+        setUserMsg("Something wrong");
+        setIsLoading(false);
+      }
     } else {
       setUserMsg("Enter a valid email address");
+      setIsLoading(false);
     }
   };
 
@@ -67,7 +85,7 @@ const Login = () => {
           <p className={styles.userMsg}>{userMsg}</p>
 
           <button onClick={handleLoginWithEmail} className={styles.loginBtn}>
-            Sign In
+            {isLoading ? "Loading..." : "Sign In"}
           </button>
         </div>
       </main>
