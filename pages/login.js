@@ -40,7 +40,6 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     if (email) {
-      if (email === "saiwang1998@163.com") {
         try {
           setIsLoading(true);
           const didToken = await magic.auth.loginWithMagicLink({
@@ -55,10 +54,6 @@ const Login = () => {
           console.error("something went wrong logging in", error);
           setIsLoading(false);
         }
-      } else {
-        setUserMsg("Something wrong");
-        setIsLoading(false);
-      }
     } else {
       setUserMsg("Enter a valid email address");
       setIsLoading(false);
