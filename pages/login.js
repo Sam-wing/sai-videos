@@ -10,11 +10,13 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [userMsg, setUserMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [canClick, setCanClick] = useState("");
   const router = useRouter();
 
   useEffect(() => {
       const handleComplete = () => {
           setIsLoading(false);
+          setCanClick("");
       }
       router.events.on('routeChangeComplete', 
       handleComplete);
@@ -39,9 +41,11 @@ const Login = () => {
     console.log("hi button");
     e.preventDefault();
     setIsLoading(true);
+    setCanClick("disabled");
     if (email) {
         try {
           setIsLoading(true);
+          setCanClick("disabled");
           const didToken = await magic.auth.loginWithMagicLink({
             email,
           });
@@ -53,10 +57,12 @@ const Login = () => {
           // Handle errors if required!
           console.error("something went wrong logging in", error);
           setIsLoading(false);
+          setCanClick("");
         }
     } else {
       setUserMsg("Enter a valid email address");
       setIsLoading(false);
+      setCanClick("");
     }
   };
 
@@ -96,7 +102,7 @@ const Login = () => {
 
           <p className={styles.userMsg}>{userMsg}</p>
 
-          <button onClick={handleLoginWithEmail} className={styles.loginBtn}>
+          <button disabled={canClick} onClick={handleLoginWithEmail} className={styles.loginBtn}>
             {isLoading ? "Loading..." : "Sign In"}
           </button>
         </div>
