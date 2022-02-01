@@ -5,16 +5,40 @@ import clsx from "classnames";
 
 Modal.setAppElement("#__next");
 
-const Video = () => {
-  const router = useRouter();
-
+export async function getStaticProps() {
+  //data to fetch from API
   const video = {
-      title: 'Hi cute dog',
-      publishTime: '1990-01-01',
-      deccription: 'A big red dog that is super cute, can he get any bigger?',
-      channelTitle: 'Paramount Pictures',
-      viewCount: 10000,
-  }
+    title: "Hi cute dog",
+    publishTime: "1990-01-01",
+    deccription: "A big red dog that is super cute, can he get any bigger?",
+    channelTitle: "Paramount Pictures",
+    viewCount: 10000,
+  };
+
+  return {
+    props: {
+      video,
+    },
+    revalidate: 10, // In seconds
+  };
+}
+
+export async function getStaticPaths() {
+  const listOfVideos = ["4zH5iYM4wJo", "JTckTjJAE6s"];
+
+  // Get the paths we want to pre-render based on posts
+  const paths = listOfVideos.map((videoId) => ({
+    params: { videoId },
+  }));
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: blocking } will server-render pages
+  // on-demand if the path doesn't exist.
+  return { paths, fallback: "blocking" };
+}
+
+const Video = ({ video }) => {
+  const router = useRouter();
 
   const { title, publishTime, deccription, channelTitle, viewCount } = video;
   return (
@@ -37,23 +61,23 @@ const Video = () => {
           frameBorder="0"
         ></iframe>
         <div className={styles.modalBody}>
-            <div className={styles.modalBodyContent}>
-                <div className={styles.col1}>
-                    <p className={styles.publishTime}>{publishTime}</p>
-                    <p className={styles.title}>{title}</p>
-                    <p className={styles.description}>{deccription}</p>
-                </div>
-                <div className={styles.col2}>
-                    <p className={clsx(styles.subText, styles.subTextsubTextWrapper)}>
-                        <span className={styles.textColor}>Cast: </span>
-                        <span className={styles.channelTitle}>{channelTitle}</span>
-                    </p>
-                    <p className={clsx(styles.subText, styles.subTextWrapper)}>
-                        <span className={styles.textColor}>View Count: </span>
-                        <span className={styles.channelTitle}>{viewCount}</span>
-                    </p>
-                </div>
+          <div className={styles.modalBodyContent}>
+            <div className={styles.col1}>
+              <p className={styles.publishTime}>{publishTime}</p>
+              <p className={styles.title}>{title}</p>
+              <p className={styles.description}>{deccription}</p>
             </div>
+            <div className={styles.col2}>
+              <p className={clsx(styles.subText, styles.subTextsubTextWrapper)}>
+                <span className={styles.textColor}>Cast: </span>
+                <span className={styles.channelTitle}>{channelTitle}</span>
+              </p>
+              <p className={clsx(styles.subText, styles.subTextWrapper)}>
+                <span className={styles.textColor}>View Count: </span>
+                <span className={styles.channelTitle}>{viewCount}</span>
+              </p>
+            </div>
+          </div>
         </div>
       </Modal>
     </div>
