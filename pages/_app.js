@@ -11,11 +11,11 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(async () => {
     const isLoggedIn = await magic.user.isLoggedIn();
-    // if (isLoggedIn) {
-    //   router.push('/');
-    // } else {
-    //   router.push('/login');
-    // }
+    if (isLoggedIn) {
+      router.push('/');
+    } else {
+      router.push('/login');
+    }
   }, []);
 
   useEffect(() => {
