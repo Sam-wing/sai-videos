@@ -10,10 +10,6 @@ export async function getServerSideProps() {
   const travelVideos = await getVideos("travel");
   const productivityVideos = await getVideos("Productivity");
   const popularVideos = await getPopularVideos();
-  console.log(disneyVideos);
-  console.log(travelVideos);
-  console.log(productivityVideos);
-  console.log(popularVideos);
 
   return {
     props: { disneyVideos, travelVideos, productivityVideos, popularVideos },

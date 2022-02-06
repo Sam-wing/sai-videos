@@ -49,11 +49,26 @@ const Login = () => {
           const didToken = await magic.auth.loginWithMagicLink({
             email,
           });
+          console.log(didToken);
           if (didToken) {
-            console.log(didToken);
-            router.push("/");
+            const response = await fetch('/api/login', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${didToken}`,
+                'Content-Type': 'application/json'
+              }
+            });
+
+            const loggedInResponse = await response.json();
+            if (loggedInResponse.done) {
+              console.log({ loggedInResponse });
+              router.push("/");
+            } else {
+              console.error("something went wrong logging in");
+              setIsLoading(false);
+            }
           }
-        } catch {
+        } catch (error) {
           // Handle errors if required!
           console.error("something went wrong logging in", error);
           setIsLoading(false);
