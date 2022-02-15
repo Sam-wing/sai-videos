@@ -6,7 +6,7 @@ import useRedirectUser from "../../utils/redirectUser";
 import { getMyList } from "../../lib/videos";
 import styles from "../../styles/MyList.module.css";
 
-export async function getServerSideProps(context) {
+export async function GetServerSideProps(context) {
   const { userId, token } = await useRedirectUser(context);
   const videos = await getMyList(userId, token);
 

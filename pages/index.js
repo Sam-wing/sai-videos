@@ -6,7 +6,7 @@ import SectionCards from "../components/card/section-cards";
 import { getVideos, getPopularVideos, getWatchItAgainVideos } from "../lib/videos";
 import useRedirectUser from "../utils/redirectUser";
 
-export async function getServerSideProps(context) {
+export async function GetServerSideProps(context) {
   const { userId, token } = await useRedirectUser(context);
   const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
   const disneyVideos = await getVideos("disney trailer");
