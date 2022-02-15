@@ -14,6 +14,7 @@ const SectionCards = (props) => {
             <Link href={`/video/${video.id}`}>
               <a>
                 <Card
+                  key={index}
                   id={idx}
                   imgUrl={video.imgUrl}
                   size={size}
