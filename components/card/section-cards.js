@@ -11,7 +11,7 @@ const SectionCards = (props) => {
       <div className={clsx(styles.cardWrapper, shouldWrap && styles.wrap)}>
         {videos.map((video, idx) => {
           return (
-            <Link href={`/video/${video.id}`}>
+            <Link key={index} href={`/video/${video.id}`}>
               <a>
                 <Card
                   key={index}
