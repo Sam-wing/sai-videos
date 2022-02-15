@@ -4,10 +4,10 @@ import Banner from "../components/banner/banner";
 import NavBar from "../components/nav/navbar";
 import SectionCards from "../components/card/section-cards";
 import { getVideos, getPopularVideos, getWatchItAgainVideos } from "../lib/videos";
-import useRedirectUser from "../utils/redirectUser";
+import redirectUser from "../utils/redirectUser";
 
-export async function GetServerSideProps(context) {
-  const { userId, token } = await useRedirectUser(context);
+export async function getServerSideProps(context) {
+  const { userId, token } = await redirectUser(context);
   const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
   const disneyVideos = await getVideos("disney trailer");
   const travelVideos = await getVideos("travel");
