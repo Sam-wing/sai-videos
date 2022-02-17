@@ -7,6 +7,7 @@ import { magic } from "../../lib/magic-client";
 
 const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [didToken, setDidToken] = useState("");
   const [username, setUsername] = useState("");
 
   const router = useRouter();
@@ -17,6 +18,7 @@ const NavBar = () => {
       const didToken = await magic.user.getIdToken();
       if (email) {
         setUsername(email);
+        setDidToken(didToken);
       }
     } catch {
       // Handle errors if required!
